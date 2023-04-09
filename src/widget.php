@@ -39,7 +39,7 @@ class qTranslateXWidget extends WP_Widget {
         parent::__construct( 'qtranslate', __( 'qTranslate Language Chooser', 'qtranslate' ), $widget_ops );
     }
 
-    function widget( $args, $instance ) {
+    function widget( $args, $instance ): void {
         if ( ! isset( $instance['widget-css-off'] ) ) {
             echo '<style>' . PHP_EOL;
             echo empty( $instance['widget-css'] ) ? QTX_WIDGET_CSS : $instance['widget-css'];
@@ -61,7 +61,7 @@ class qTranslateXWidget extends WP_Widget {
         echo $args['after_widget'];
     }
 
-    function update( $new_instance, $old_instance ) {
+    function update( $new_instance, $old_instance ): array {
         $instance          = $old_instance;
         $instance['title'] = $new_instance['title'];
 
@@ -100,8 +100,8 @@ class qTranslateXWidget extends WP_Widget {
         return $instance;
     }
 
-    function form( $instance ) {
-        $instance         = wp_parse_args( (array) $instance, array(
+    function form( $instance ): void {
+        $instance         = wp_parse_args( $instance, array(
             'title'      => '',
             'type'       => 'text',
             'format'     => '',
@@ -119,15 +119,16 @@ class qTranslateXWidget extends WP_Widget {
         }
         ?>
         <p><label for="<?php echo $this->get_field_id( 'title' ) ?>"><?php _e( 'Title:', 'qtranslate' ) ?> <input
-                        class="widefat" id="<?php echo $this->get_field_id( 'title' ) ?>"
-                        name="<?php echo $this->get_field_name( 'title' ) ?>" type="text"
-                        value="<?php echo esc_attr( $title ) ?>"/></label></p>
+                    class="widefat" id="<?php echo $this->get_field_id( 'title' ) ?>"
+                    name="<?php echo $this->get_field_name( 'title' ) ?>" type="text"
+                    value="<?php echo esc_attr( $title ) ?>"/></label></p>
         <p><label for="<?php echo $this->get_field_id( 'hide-title' ) ?>"><?php _e( 'Hide Title:', 'qtranslate' ) ?>
                 <input type="checkbox" id="<?php echo $this->get_field_id( 'hide-title' ) ?>"
                        name="<?php echo $this->get_field_name( 'hide-title' ) ?>" <?php checked( $hide_title ) ?>/></label>
         </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'hide-title-colon' ) ?>"><?php _e( 'Hide Title Colon:', 'qtranslate' ) ?>
+            <label
+                for="<?php echo $this->get_field_id( 'hide-title-colon' ) ?>"><?php _e( 'Hide Title Colon:', 'qtranslate' ) ?>
                 <input type="checkbox" id="<?php echo $this->get_field_id( 'hide-title-colon' ) ?>"
                        name="<?php echo $this->get_field_name( 'hide-title-colon' ) ?>" <?php checked( $hide_title_colon ) ?>/></label>
         </p>

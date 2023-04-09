@@ -7,7 +7,7 @@ if ( ! defined( 'QTRANS_INIT' ) ) {
     define( 'QTRANS_INIT', true );
 }
 if ( ! function_exists( 'qtrans_convertURL' ) ) {
-    function qtrans_convertURL( $url = '', $lang = '', $forceadmin = false, $showDefaultLanguage = false ) {
+    function qtrans_convertURL( $url = '', $lang = '', $forceadmin = false, $showDefaultLanguage = false ): string {
         return qtranxf_convertURL( $url, $lang, $forceadmin, $showDefaultLanguage );
     }
 }
@@ -21,7 +21,7 @@ if ( ! function_exists( 'qtrans_generateLanguageSelectCode' ) ) {
  * Some 3rd-party plugins (for example "Google XML Sitemaps v3 for qTranslate") use this function and expect an array in return.
  */
 if ( ! function_exists( 'qtrans_getAvailableLanguages' ) ) {
-    function qtrans_getAvailableLanguages( $text ) {
+    function qtrans_getAvailableLanguages( $text ): array {
         $langs = qtranxf_getAvailableLanguages( $text );
         if ( is_array( $langs ) ) {
             return $langs;
@@ -36,22 +36,22 @@ if ( ! function_exists( 'qtrans_getAvailableLanguages' ) ) {
 }
 
 if ( ! function_exists( 'qtrans_getLanguage' ) ) {
-    function qtrans_getLanguage() {
+    function qtrans_getLanguage(): string {
         return qtranxf_getLanguage();
     }
 }
 if ( ! function_exists( 'qtrans_getLanguageName' ) ) {
-    function qtrans_getLanguageName( $lang = '' ) {
+    function qtrans_getLanguageName( string $lang = '' ): string {
         return qtranxf_getLanguageNameNative( $lang );
     }
 }
 if ( ! function_exists( 'qtrans_getSortedLanguages' ) ) {
-    function qtrans_getSortedLanguages( $reverse = false ) {
+    function qtrans_getSortedLanguages( bool $reverse = false ): array {
         return qtranxf_getSortedLanguages( $reverse );
     }
 }
 if ( ! function_exists( 'qtrans_join' ) ) {
-    function qtrans_join( $texts ) {
+    function qtrans_join( $texts ): string {
         if ( ! is_array( $texts ) ) {
             $texts = qtranxf_split( $texts );
         }
@@ -60,12 +60,12 @@ if ( ! function_exists( 'qtrans_join' ) ) {
     }
 }
 if ( ! function_exists( 'qtrans_split' ) ) {
-    function qtrans_split( $text, $quicktags = true ) {
+    function qtrans_split( $text, bool $quicktags = true ): array {
         return qtranxf_split( $text );
     }
 }
 if ( ! function_exists( 'qtrans_use' ) ) {
-    function qtrans_use( $lang, $text, $show_available = false ) {
+    function qtrans_use( string $lang, $text, bool $show_available = false ) {
         return qtranxf_use( $lang, $text, $show_available );
     }
 }

@@ -13,7 +13,7 @@ require_once QTRANSLATE_DIR . '/src/admin/admin_taxonomy.php';
 /**
  * @see qtranxf_collect_translations
  */
-function qtranxf_collect_translations_deep( $qfields, $sep ) {
+function qtranxf_collect_translations_deep( $qfields, string $sep ) {
     $content = reset( $qfields );
     if ( is_string( $content ) ) {
         return qtranxf_join_texts( $qfields, $sep );
@@ -40,7 +40,7 @@ function qtranxf_collect_translations_deep( $qfields, $sep ) {
  * @param array|string $request an ML field of $_REQUEST.
  * @param string $edit_lang language of the active LSB at the time of sending the request.
  */
-function qtranxf_collect_translations( &$qfields, &$request, $edit_lang ) {
+function qtranxf_collect_translations( array &$qfields, &$request, string $edit_lang ): void {
     if ( isset( $qfields['qtranslate-separator'] ) ) {
         $sep = $qfields['qtranslate-separator'];
         unset( $qfields['qtranslate-separator'] );
@@ -67,7 +67,7 @@ function qtranxf_collect_translations( &$qfields, &$request, $edit_lang ) {
 /**
  * @since 3.4.6.5
  */
-function qtranxf_decode_json_name_value( $value ) {
+function qtranxf_decode_json_name_value( $value ): ?array {
     if ( strpos( $value, 'qtranslate-fields' ) === false ) {
         return null;
     }
@@ -132,7 +132,7 @@ function qtranxf_load_admin_page_config() {
  * @return bool true when the current page is the configuration page of QT-XT.
  * @since 3.4.7
  */
-function qtranxf_admin_is_config_page() {
+function qtranxf_admin_is_config_page(): bool {
     global $q_config, $pagenow;
 
     return ( $pagenow == 'options-general.php' )
@@ -529,7 +529,7 @@ function qtranxf_add_admin_highlight_css() {
  *
  * @return string
  */
-function qtranxf_get_admin_highlight_css( $highlight_mode ) {
+function qtranxf_get_admin_highlight_css( int $highlight_mode ): string {
     $css = 'input.qtranxs-translatable, textarea.qtranxs-translatable, div.qtranxs-translatable, span.qtranxs-translatable {' . PHP_EOL;
     switch ( $highlight_mode ) {
         case QTX_HIGHLIGHT_MODE_BORDER_LEFT:
