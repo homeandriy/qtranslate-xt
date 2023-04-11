@@ -341,7 +341,7 @@ function qtranxf_reset_config(): void {
     foreach ( $qtranslate_options['default_value'] as $nm => $def ) {
         delete_option( 'qtranslate_' . $nm );
     }
-    foreach ( $qtranslate_options['languages'] as $nm => $opn ) {
+    foreach ( $qtranslate_options['languages'] as $opn ) {
         delete_option( $opn );
     }
 
@@ -813,7 +813,7 @@ function qtranxf_update_settings(): void {
         if ( ! isset( $_POST[ $id ] ) ) {
             continue;
         }
-        $domain           = preg_replace( '#^/*#', '', untrailingslashit( trim( $_POST[ $id ] ) ) );
+        $domain           = trim( $_POST[ $id ], " /" );
         $domains[ $lang ] = $domain;
     }
     if ( ! empty( $domains ) && ( ! isset( $q_config['domains'] ) || ! qtranxf_array_compare( $q_config['domains'], $domains ) ) ) {

@@ -32,9 +32,7 @@ function qtranxf_convertURL( string $url = '', string $lang = '', bool $forceadm
 
     $url = apply_filters( 'qtranslate_convert_url', $url, $lang );
 
-    $complete = qtranxf_get_url_for_language( $url, $lang, $showLanguage );
-
-    return $complete;
+    return qtranxf_get_url_for_language( $url, $lang, $showLanguage );
 }
 
 function qtranxf_convertURLs( $url, string $lang = '', bool $forceadmin = false, bool $showDefaultLanguage = false ) {
@@ -438,7 +436,7 @@ function qtranxf_buildURL( array $urlinfo, array $homeinfo ): string {
             }
             $url .= '@';
         }
-        $url .= empty( $urlinfo['host'] ) ? $homeinfo['host'] : $urlinfo['host'];
+        $url .= $urlinfo['host'];
     }
     if ( ! empty( $urlinfo['path-base'] ) ) {
         $url .= $urlinfo['path-base'];

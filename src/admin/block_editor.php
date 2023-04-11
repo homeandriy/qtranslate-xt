@@ -77,9 +77,7 @@ class QTX_Admin_Block_Editor {
         // TODO allow user to select editor lang with buttons
         $editor_lang = $q_config['url_info']['language'];
 
-        $response = $this->select_raw_response_language( $response, $editor_lang );
-
-        return $response;
+        return $this->select_raw_response_language( $response, $editor_lang );
     }
 
     /**
@@ -159,9 +157,7 @@ class QTX_Admin_Block_Editor {
             return $response;
         }
 
-        $response = $this->select_raw_response_language( $response, $editor_lang );
-
-        return $response;
+        return $this->select_raw_response_language( $response, $editor_lang );
     }
 
     /**
@@ -199,18 +195,17 @@ class QTX_Admin_Block_Editor {
      */
     private function select_raw_response_language( $response, string $editor_lang ) {
         $response_data = $response->get_data();
-        if ( isset( $response_data['content'] ) && is_array( $response_data['content'] ) && isset( $response_data['content']['raw'] ) ) {
-            $response_data['title']['raw']   = qtranxf_use( $editor_lang, $response_data['title']['raw'], false, true );
-            $response_data['content']['raw'] = qtranxf_use( $editor_lang, $response_data['content']['raw'], false, true );
-
-            if ( isset( $response_data['excerpt']['raw'] ) ) {
-                $response_data['excerpt']['raw'] = qtranxf_use( $editor_lang, $response_data['excerpt']['raw'], false, true );
-            }
-
-            $response_data['qtx_editor_lang'] = $editor_lang;
-            $response->set_data( $response_data );
+        if ( isset( $response_data['title']['raw'] ) ) {
+            $response_data['title']['raw'] = qtranxf_use( $editor_lang, $response_data['title']['raw'], false, true );
         }
-
+        if ( isset( $response_data['content']['raw'] ) ) {
+            $response_data['content']['raw'] = qtranxf_use( $editor_lang, $response_data['content']['raw'], false, true );
+        }
+        if ( isset( $response_data['excerpt']['raw'] ) ) {
+            $response_data['excerpt']['raw'] = qtranxf_use( $editor_lang, $response_data['excerpt']['raw'], false, true );
+        }
+        $response_data['qtx_editor_lang'] = $editor_lang;
+        $response->set_data( $response_data );
         return $response;
     }
 

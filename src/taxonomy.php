@@ -4,12 +4,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * @param WP_Term $term
+ * @param WP_Term|object $term
  *
  * @since 3.4.6.9
  *
  */
-function qtranxf_term_set_i18n_config( WP_Term $term ) {
+function qtranxf_term_set_i18n_config( $term ) {
     $term->i18n_config = array();
     if ( isset( $term->name ) ) {
         global $q_config;
@@ -35,8 +35,8 @@ function qtranxf_term_use( string $lang, $obj, $taxonomy ) {
     global $q_config;
     if ( is_array( $obj ) ) {
         // handle arrays recursively
-        foreach ( $obj as $key => $t ) {
-            $obj[ $key ] = qtranxf_term_use( $lang, $obj[ $key ], $taxonomy );
+        foreach ( $obj as $key => $term ) {
+            $obj[ $key ] = qtranxf_term_use( $lang, $term, $taxonomy );
         }
 
         return $obj;
@@ -72,7 +72,7 @@ function qtranxf_useTermLib( $obj ) {
  * @since 3.4.6.9
  *
  */
-function qtranxf_term_name_in( string $lang, WP_Term $term ): string {
+function qtranxf_term_name_in( string $lang, $term ): string {
     if ( isset( $term->i18n_config['name']['ts'][ $lang ] ) ) {
         return $term->i18n_config['name']['ts'][ $lang ];
     }

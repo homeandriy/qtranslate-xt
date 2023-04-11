@@ -30,14 +30,14 @@ function qtranxf_get_language_blocks( $text ): array {
 
 /**
  * Split a multilingual string into array of tokens by language.
+ * If the string is empty or non-multilingual, it is repeated for each language.
  *
- * @param string $text multilingual string.
+ * @param string $text String that can contain multilingual tokens.
  *
  * @return string[] array of string items indexed by language.
  */
-function qtranxf_split( $text ): array {
+function qtranxf_split( string $text ): array {
     $blocks = qtranxf_get_language_blocks( $text );
-
     return qtranxf_split_blocks( $blocks );
 }
 
@@ -180,7 +180,7 @@ function qtranxf_getAvailableLanguages( $text ) {
 function qtranxf_allthesame( array $texts ): ?string {
     $text = null;
     // take first not empty
-    foreach ( $texts as $lang => $lang_text ) {
+    foreach ( $texts as $lang_text ) {
         if ( ! $lang_text || $lang_text == '' ) {
             continue;
         }
@@ -190,7 +190,7 @@ function qtranxf_allthesame( array $texts ): ?string {
     if ( empty( $text ) ) {
         return '';
     }
-    foreach ( $texts as $lang => $lang_text ) {
+    foreach ( $texts as $lang_text ) {
         if ( $lang_text != $text ) {
             return null;
         }
@@ -455,7 +455,7 @@ function qtranxf_use_content( string $lang, $content, array $available_langs, bo
 
     $msg    = preg_replace( '/%LANG:([^:]*):([^%]*)%/', $language_list, $q_config['not_available'][ $lang ] );
     $output = '<p class="qtranxs-available-languages-message qtranxs-available-languages-message-' . $lang . '">' . $msg . '</p>';
-    if ( ! empty( $q_config['show_alternative_content'] ) && $q_config['show_alternative_content'] ) {
+    if ( ! empty( $q_config['show_alternative_content'] ) ) {
         $output .= $alt_content;
     }
 
