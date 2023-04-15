@@ -639,7 +639,7 @@ function qtranxf_esc_html( $text ) {
 
 if ( ! function_exists( 'qtranxf_trim_words' ) ) {
 // filter added in qtranslate_hooks.php
-    function qtranxf_trim_words( string $text, int $num_words, string $more, string $original_text ): string {
+    function qtranxf_trim_words( $text, int $num_words, $more, $original_text ): string {
         global $q_config;
         $blocks = qtranxf_get_language_blocks( $original_text );
         if ( count( $blocks ) <= 1 ) {
@@ -815,18 +815,25 @@ function qtranxf_updated_usermeta( int $meta_id, int $object_id, string $meta_ke
     qtranxf_cache_delete_metadata( 'user', $object_id );
 }
 
-// TODO check API with Yoast, seems it's only 1 parameter?
-function qtranxf_checkCanonical( string $redirect_url, string $requested_url ): string {
-    global $q_config;
-    $lang = $q_config['language'];
+/**
+ * Hook for redirect_canonical.
+ *
+ * @param string|false $redirect_url Attention! WordPress documents it as string, but it can be false.
+ * @param mixed $requested_url Attention! WordPress documents it as string, but it can be array or null.
+ *
+ */
+function qtranxf_checkCanonical( $redirect_url, $requested_url ): string {
+    if ( $redirect_url === false ) {
+        return false;
+    }
     // fix canonical conflicts with language urls
-    return qtranxf_convertURL( $redirect_url, $lang );
+    return qtranxf_convertURL( $redirect_url );
 }
 
 /**
  * @since 3.2.8 moved here from _hooks.php
  */
-function qtranxf_convertBlogInfoURL( string $url, string $what ): string {
+function qtranxf_convertBlogInfoURL( $url, string $what ): string {
     switch ( $what ) {
         case 'stylesheet_url':
         case 'template_url':
